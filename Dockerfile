@@ -1,6 +1,9 @@
 FROM ubuntu:16.04
 MAINTAINER Tim Haak <tim@haak.co>
 
+ADD Preferences.xml /Preferences.xml
+ADD start.sh /start.sh
+
 ENV DEBIAN_FRONTEND="noninteractive" \
     TERM="xterm"
 
@@ -43,8 +46,5 @@ ENV RUN_AS_ROOT="true" \
     PLEX_DISABLE_SECURITY=1
 
 EXPOSE 32400
-
-ADD Preferences.xml /Preferences.xml
-ADD start.sh /start.sh
 
 CMD ["/start.sh"]
