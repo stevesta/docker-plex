@@ -1,5 +1,8 @@
 FROM timhaak/plex
 
+ENV DEBIAN_FRONTEND="noninteractive" \
+    TERM="xterm"
+
 RUN apt-get -q update && \
     apt-get -qy dist-upgrade && \
     apt-get remove -y \
