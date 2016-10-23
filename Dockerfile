@@ -44,7 +44,7 @@ ENV RUN_AS_ROOT="true" \
 
 EXPOSE 32400
 
-ADD ./Preferences.xml /Preferences.xml
-ADD ./start.sh /start.sh
+ADD Preferences.xml /Preferences.xml
+ADD start.sh /start.sh
 
 CMD ["/start.sh"]
