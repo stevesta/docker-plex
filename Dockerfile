@@ -1,7 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER Tim Haak <tim@haak.co>
 
-ADD https://github.com/stevesta/docker-plex/blob/master/start.sh /start.sh
+ADD Preferences.xml /
+ADD start.sh /
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     TERM="xterm"
