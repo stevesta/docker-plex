@@ -24,23 +24,15 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup &&\
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-ARG PLEX_PASS='false'
+ENV PLEX_DOWNLOAD="https://downloads.plex.tv/plex-media-server/1.2.0.2838-a68e2fe/plexmediaserver_1.2.0.2838-a68e2fe_amd64.deb"
 
-ENV PLEX_URL="https://plex.tv/api/downloads/1.json" \
-    PLEX_PASS_URL="https://plex.tv/api/downloads/1.json?channel=plexpass"
-
-    RUN if [ "${PLEX_PASS}" = "true" ]; then PLEX_URL=${PLEX_PASS_URL}; fi && \
-    PLEX_JSON=$(curl -s $PLEX_URL | jq -r '.computer.Linux.releases[] | select(.build=="linux-ubuntu-x86_64" and .distro=="ubuntu") | .') && \
-    PLEX_DOWNLOAD=$(echo $PLEX_JSON | jq -r '.url') && \
-    PLEX_CHECKSUM=$(echo $PLEX_JSON | jq -r '.checksum') && \
-    wget -O plex_server.deb $PLEX_DOWNLOAD && \
-    echo "$PLEX_CHECKSUM *plex_server.deb" | sha1sum -c - && \
-    dpkg -i plex_server.deb && \
-    rm plex_server.deb && \
-    apt-get -y autoremove && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/*
+RUN wget -O plex_server.deb $PLEX_DOWNLOAD && \
+dpkg -i plex_server.deb && \
+rm plex_server.deb && \
+apt-get -y autoremove && \
+apt-get -y clean && \
+rm -rf /var/lib/apt/lists/* && \
+rm -rf /tmp/*
 
 VOLUME ["/config","/data"]
 
