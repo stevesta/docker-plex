@@ -1,7 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Tim Haak <tim@haak.co>
 
-ADD Preferences.xml /Preferences.xml
 ADD start.sh /start.sh
 
 ENV DEBIAN_FRONTEND="noninteractive" \
