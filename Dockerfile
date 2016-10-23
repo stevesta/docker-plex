@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 MAINTAINER Tim Haak <tim@haak.co>
 
-COPY Preferences.xml /Preferences.xml
-COPY start.sh /start.sh
+COPY ./Preferences.xml /
+COPY ./start.sh /
 
 ENV DEBIAN_FRONTEND="noninteractive" \
     TERM="xterm"
