@@ -1,26 +1,9 @@
-FROM ubuntu:16.04
-MAINTAINER Tim Haak <tim@haak.co>
+FROM timhaak/plex
 
-COPY ./Preferences.xml /
-COPY ./start.sh /
-
-ENV DEBIAN_FRONTEND="noninteractive" \
-    TERM="xterm"
-
-RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup &&\
-    echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache && \
-    apt-get -q update && \
+RUN apt-get -q update && \
     apt-get -qy dist-upgrade && \
-    apt-get install -qy \
-      iproute2 \
-      ca-certificates \
-      ffmpeg \
-      jq \
-      openssl \
-      xmlstarlet \
-      curl \
-      sudo \
-      wget \
+    apt-get remove -y \
+      plexmediaserver \
     && \
     apt-get -y autoremove && \
     apt-get -y clean && \
